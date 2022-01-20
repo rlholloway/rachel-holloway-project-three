@@ -17,8 +17,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
-// import Randomize from './Randomize.js';
+import Randomize from './Randomize.js';
 import UserSearch from './UserSearch';
+import DisplayQuotes from './DisplayQuotes.js';
 
 function App() {
 
@@ -36,8 +37,8 @@ function App() {
       method: "GET",
       dataResponse: "json",
       params: {
-        author: userInput,
-        genre: genreInput,
+        author: searchTerm,
+        genre: genreTerm,
         limit: 10
       }
     }).then((response) => {
@@ -46,18 +47,18 @@ function App() {
     })
   }, [searchTerm, genreTerm]);
 
-  const handleClick = (event) => {
-    console.log("It works!");
-    if (quote !== "") {
-      const listOfQuotes = quote;
-      const randomQuote = listOfQuotes[Math.floor(Math.random() * listOfQuotes.length)];
-      return (
-        console.log(randomQuote)
-      )
-    } else {
-      console.log("Try Again");
-    }
-  }
+  // const handleClick = (event) => {
+  //   console.log("It works!");
+  //   if (quote !== "") {
+  //     const listOfQuotes = quote;
+  //     const randomQuote = listOfQuotes[Math.floor(Math.random() * listOfQuotes.length)];
+  //     return (
+  //       console.log(randomQuote)
+  //     )
+  //   } else {
+  //     console.log("Try Again");
+  //   }
+  // }
 
   const handleInput = (event) => {
     setUserInput(event.target.value);
@@ -73,6 +74,7 @@ function App() {
     if (userInput === "") {
       alert("Please enter a valid search");
     }
+    setUserInput("");
   }
 
   const handleGenreSubmit = (event) => {
@@ -81,17 +83,25 @@ function App() {
     if (genreInput === "") {
       alert("Please enter a valid search");
     }
-  }
+    setGenreInput("");
+  } 
 
   return (
     <div>
       <Header />
-      {/* <Randomize
-      quote={quote} /> */}
+      <Randomize
+      randomQuotes={quote} />
+      {
+        searchTerm || genreTerm 
+        ? <DisplayQuotes 
+      searchTerm={searchTerm}
+      genreTerm={genreTerm} />
+        : null
+      }
 
-      <button className='randomizeButton' onClick={handleClick}>Find a Random Quote</button>
+      {/* <button className='randomizeButton' onClick={handleClick}>Find a Random Quote</button> */}
 
-      <div className='resultsSection wrapper'>
+      {/* <div className='resultsSection wrapper'>
         {quote.map((singleQuote) => {
           return (
             <div key={singleQuote._id}>
@@ -100,7 +110,7 @@ function App() {
             </div>
           )
         })}
-      </div>
+      </div> */}
 
         <UserSearch 
         handleSubmit={handleSubmit}
