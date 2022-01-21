@@ -39,26 +39,12 @@ function App() {
       params: {
         author: searchTerm,
         genre: genreTerm,
-        limit: 10
+        limit: 20
       }
     }).then((response) => {
-      console.log(response.data.data);
       setQuote(response.data.data);
     })
   }, [searchTerm, genreTerm]);
-
-  // const handleClick = (event) => {
-  //   console.log("It works!");
-  //   if (quote !== "") {
-  //     const listOfQuotes = quote;
-  //     const randomQuote = listOfQuotes[Math.floor(Math.random() * listOfQuotes.length)];
-  //     return (
-  //       console.log(randomQuote)
-  //     )
-  //   } else {
-  //     console.log("Try Again");
-  //   }
-  // }
 
   const handleInput = (event) => {
     setUserInput(event.target.value);
@@ -74,7 +60,6 @@ function App() {
     if (userInput === "") {
       alert("Please enter a valid search");
     }
-    setUserInput("");
   }
 
   const handleGenreSubmit = (event) => {
@@ -83,43 +68,37 @@ function App() {
     if (genreInput === "") {
       alert("Please enter a valid search");
     }
+  }
+
+  const handleClear = (event) => {
+    setUserInput("");
     setGenreInput("");
-  } 
+    setSearchTerm("");
+    setGenreTerm("");
+  }
 
   return (
     <div>
       <Header />
       <Randomize
-      randomQuotes={quote} />
+        randomQuotes={quote} />
       {
-        searchTerm || genreTerm 
-        ? <DisplayQuotes 
-      searchTerm={searchTerm}
-      genreTerm={genreTerm} />
-        : null
+        searchTerm || genreTerm
+          ? <DisplayQuotes
+            searchTerm={searchTerm}
+            genreTerm={genreTerm} />
+          : null
       }
-
-      {/* <button className='randomizeButton' onClick={handleClick}>Find a Random Quote</button> */}
-
-      {/* <div className='resultsSection wrapper'>
-        {quote.map((singleQuote) => {
-          return (
-            <div key={singleQuote._id}>
-              <p className='quoteText'>“{singleQuote.quoteText}”</p>
-              <p className='authorText'>—{singleQuote.quoteAuthor}</p>
-            </div>
-          )
-        })}
-      </div> */}
-
-        <UserSearch 
+      <UserSearch
         handleSubmit={handleSubmit}
         handleInput={handleInput}
         userInput={userInput}
         handleGenreSubmit={handleGenreSubmit}
         handleGenreInput={handleGenreInput}
-        genreInput={genreInput}/>
-      
+        genreInput={genreInput} />
+
+      <button className='clearForms' onClick={handleClear}>Clear my Search</button>
+
       <footer>Created at Juno College 2022</footer>
     </div>
   );

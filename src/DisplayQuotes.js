@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const DisplayQuotes = (props) => {
-    const [ quote, setQuote ] = useState([]);
+    const [quote, setQuote] = useState([]);
     useEffect(() => {
         axios({
             url: "https://quote-garden.herokuapp.com/api/v3/quotes/",
@@ -11,7 +11,7 @@ const DisplayQuotes = (props) => {
             params: {
                 author: props.searchTerm,
                 genre: props.genreTerm,
-                limit: 10
+                limit: 20
             }
         }).then((response) => {
             console.log(response.data.data);
@@ -19,8 +19,7 @@ const DisplayQuotes = (props) => {
         })
     }, [props.searchTerm, props.genreTerm]);
     return (
-        <div>
-            <h1>Display Quotes</h1>
+        <div className="wrapper">
             {
                 quote.map((singleQuote) => {
                     return (
@@ -30,7 +29,7 @@ const DisplayQuotes = (props) => {
                         </div>
                     )
 
-            })}
+                })}
         </div>
     )
 }
