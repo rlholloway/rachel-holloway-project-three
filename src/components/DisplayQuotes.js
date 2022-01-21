@@ -11,7 +11,7 @@ const DisplayQuotes = (props) => {
             params: {
                 author: props.searchTerm,
                 genre: props.genreTerm,
-                limit: 20
+                limit: 10
             }
         }).then((response) => {
             console.log(response.data.data);

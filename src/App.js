@@ -16,10 +16,10 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from './Header.js';
-import Randomize from './Randomize.js';
-import UserSearch from './UserSearch';
-import DisplayQuotes from './DisplayQuotes.js';
+import Header from './components/Header.js'
+import Randomize from './components/Randomize.js';
+import UserSearch from './components/UserSearch';
+import DisplayQuotes from './components/DisplayQuotes.js';
 
 function App() {
 
